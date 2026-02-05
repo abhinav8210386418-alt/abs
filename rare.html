@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Pragya 🌹</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- GLOBAL ---------- */
+body{
+    background: radial-gradient(circle at top, #2a0014 0%, #0b0005 60%, #000 100%);
+    font-family:'Quicksand',sans-serif;
+    height:100vh;
+    width:100vw;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ffd6e0;
+    text-rendering: optimizeLegibility;
+}
+
+.font-cursive{font-family:'Dancing Script',cursive}
+
+/* 🔥 CRITICAL TEXT FIX 🔥 */
+h1, h2, p {
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+}
+
+/* ---------- BACKGROUND HEARTS ---------- */
+.bg-element{
+    position:absolute;
+    pointer-events:none;
+    opacity:0;
+}
+.float-heart{
+    animation:floatUp linear infinite;
+    color:rgba(255,77,109,.35);
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(110vh) scale(.4);opacity:0}
+    30%{opacity:.7}
+    100%{transform:translateY(-10vh) scale(1.2) rotate(360deg);opacity:0}
+}
+
+/* ---------- STORY ---------- */
+.story-step{
+    position:absolute;
+    width:92%;
+    max-width:640px;
+    min-width:300px;
+    padding:0 16px;
+    text-align:center;
+    transition:.8s ease;
+}
+
+.hidden-step{
+    opacity:0;
+    transform:translateY(30px) scale(.95);
+    pointer-events:none;
+}
+
+.active-step{
+    opacity:1;
+    transform:none;
+}
+
+/* ---------- TYPOGRAPHY ---------- */
+.resp-title{
+    font-size:clamp(2rem, 5vw, 3.2rem);
+    line-height:1.35;
+    max-width:100%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.resp-sub{
+    font-size:clamp(1.1rem, 3.5vw, 1.4rem);
+    line-height:1.6;
+    max-width:560px;
+    margin:0 auto;
+}
+
+/* ---------- BUTTON ---------- */
+.btn-main{
+    background:linear-gradient(45deg,#ff1744,#ff4d6d);
+    box-shadow:0 0 25px rgba(255,77,109,.6);
+    transition:.25s;
+}
+.btn-main:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 40px rgba(255,77,109,.9);
+}
+
+/* ---------- ROSE ---------- */
+.rose-container{
+    max-width:420px;
+    filter:drop-shadow(0 0 35px rgba(255,77,109,.9));
+}
+
+.stem{
+    stroke-dasharray:1000;
+    stroke-dashoffset:1000;
+    transition:2.5s;
+}
+
+.leaf{
+    transform:scale(0);
+    transition:1s cubic-bezier(.34,1.56,.64,1);
+}
+
+.rose-head path{
+    opacity:0;
+    transform:scale(0);
+    transform-origin:250px 250px;
+    transition:1.5s cubic-bezier(.18,.89,.32,1.28);
+}
+
+.bloom .stem{stroke-dashoffset:0}
+.bloom .leaf{transform:scale(1)}
+.bloom .rose-head path{opacity:1;transform:scale(1)}
+
+/* ---------- MESSAGE ---------- */
+.message-card{
+    background:rgba(20,0,10,.85);
+    border:1px solid rgba(255,77,109,.4);
+    border-radius:20px;
+    padding:26px;
+    margin-top:24px;
+    box-shadow:0 0 30px rgba(255,77,109,.4);
+    opacity:0;
+    transform:translateY(20px);
+    transition:1s;
+    max-width:560px;
+}
+
+.message-card.show-message{
+    opacity:1;
+    transform:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="bg-layer" class="absolute inset-0"></div>
+
+<main class="relative z-20 flex flex-col items-center justify-center">
+
+<!-- STEP 1 -->
+<div id="step-1" class="story-step active-step">
+    <h1 class="resp-title font-cursive text-rose-400 mb-5">
+        Hey Pragya… 🌙
+    </h1>
+    <p class="resp-sub mb-8">
+        Can I ask you something special?
+    </p>
+    <button onclick="nextStep(1,2)"
+        class="btn-main px-8 py-3 rounded-full text-lg font-bold">
+        Yes ❤️
+    </button>
+</div>
+
+<!-- STEP 2 -->
+<div id="step-2" class="story-step hidden-step">
+    <h1 class="resp-title font-cursive text-rose-400 mb-4">
+        Will you accept this rose made especially for you? 🌹
+    </h1>
+    <p class="resp-sub mb-8">
+        Accept kar le yaar… Bohot mehnat lga h 😌
+    </p>
+    <button onclick="revealRose()"
+        class="btn-main px-10 py-4 rounded-full text-xl font-bold">
+        I accept 💖
+    </button>
+</div>
+
+<!-- ROSE VIEW -->
+<div id="rose-view" class="story-step hidden-step flex flex-col items-center">
+
+<svg id="rose-svg" class="rose-container" viewBox="0 0 500 600">
+<defs>
+<linearGradient id="leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#52b788"/>
+<stop offset="100%" stop-color="#1b4332"/>
+</linearGradient>
+</defs>
+
+<path class="stem" d="M250,580 Q230,450 250,250"
+stroke="#2d6a4f" stroke-width="12" fill="none" stroke-linecap="round"/>
+
+<path class="leaf leaf-1"
+d="M240,450 Q170,430 150,370 Q210,390 240,450"
+fill="url(#leaf)"/>
+
+<path class="leaf leaf-2"
+d="M250,360 Q330,340 350,280 Q290,300 250,360"
+fill="url(#leaf)"/>
+
+<g class="rose-head">
+<path d="M250,250 C200,250 180,150 250,120 C320,150 300,250 250,250"
+fill="#a4133c"/>
+<path d="M250,250 C180,240 160,180 250,160 C340,180 320,240 250,250"
+fill="#ff4d6d"/>
+</g>
+</svg>
+
+<div id="final-message" class="message-card text-center">
+    <h2 class="text-3xl font-cursive text-rose-300 mb-3">
+        Happy Rose Day, Pragya 🌹
+    </h2>
+    <p class="text-lg text-rose-200 leading-relaxed mx-auto">
+        Bole the na acchi to tum ho.  
+        Fir se bol doon?  
+        Yes — I’m genuinely enjoying your company ❤️
+    </p>
+</div>
+
+</div>
+</main>
+
+<script>
+/* floating hearts */
+const bg=document.getElementById('bg-layer');
+const icons=['❤️','🌹','✨'];
+for(let i=0;i<18;i++){
+    const d=document.createElement('div');
+    d.className='bg-element float-heart';
+    d.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+    d.style.left=Math.random()*100+'%';
+    d.style.fontSize=10+Math.random()*20+'px';
+    d.style.animationDuration=8+Math.random()*6+'s';
+    bg.appendChild(d);
+}
+
+/* navigation */
+function nextStep(c,n){
+    document.getElementById('step-'+c).classList.replace('active-step','hidden-step');
+    const next=document.getElementById('step-'+n);
+    next.style.display='block';
+    setTimeout(()=>next.classList.replace('hidden-step','active-step'),50);
+}
+
+/* reveal rose */
+function revealRose(){
+    document.getElementById('step-2').style.display='none';
+    const r=document.getElementById('rose-view');
+    r.style.display='flex';
+    setTimeout(()=>{
+        r.classList.replace('hidden-step','active-step');
+        document.getElementById('rose-svg').classList.add('bloom');
+        setTimeout(()=>{
+            document.getElementById('final-message').classList.add('show-message');
+        },3000);
+    },200);
+}
+</script>
+
+</body>
+</html>
