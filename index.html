@@ -19,12 +19,10 @@ body{
     align-items:center;
     justify-content:center;
     color:#ffd6e0;
-    text-rendering: optimizeLegibility;
 }
 
 .font-cursive{font-family:'Dancing Script',cursive}
 
-/* TEXT WRAP FIX */
 h1,h2,p{
     white-space: normal !important;
     word-break: keep-all !important;
@@ -63,7 +61,6 @@ h1,h2,p{
 
 .rose-container{max-width:420px;filter:drop-shadow(0 0 35px rgba(255,77,109,.9))}
 .stem{stroke-dasharray:1000;stroke-dashoffset:1000;transition:2.5s}
-.leaf{transform:scale(0);transition:1s cubic-bezier(.34,1.56,.64,1)}
 .rose-head path{
     opacity:0;
     transform:scale(0);
@@ -71,7 +68,6 @@ h1,h2,p{
     transition:1.5s cubic-bezier(.18,.89,.32,1.28)
 }
 .bloom .stem{stroke-dashoffset:0}
-.bloom .leaf{transform:scale(1)}
 .bloom .rose-head path{opacity:1;transform:scale(1)}
 
 .message-card{
@@ -94,7 +90,7 @@ h1,h2,p{
 
 <!-- 🎵 BACKGROUND MUSIC -->
 <audio id="bgm" preload="auto" loop>
-    <source src="./bgm.mp3" type="audio/mpeg">
+    <source src="bgm.mp3" type="audio/mpeg">
 </audio>
 
 <div id="bg-layer" class="absolute inset-0"></div>
@@ -161,16 +157,16 @@ for(let i=0;i<18;i++){
     bg.appendChild(d);
 }
 
-/* ✅ GUARANTEED SOUND */
+/* 🔊 GUARANTEED CHROME AUDIO FIX */
 function startExperience(){
-    bgm.volume = 0.45;
+    bgm.muted = true;
+    bgm.volume = 0.6;
 
-    const playPromise = bgm.play();
-    if (playPromise !== undefined) {
-        playPromise.catch(error => {
-            console.log("Audio blocked:", error);
-        });
-    }
+    bgm.play().then(() => {
+        bgm.muted = false;   // ✅ Chrome unlock
+    }).catch(err => {
+        console.log("Audio blocked:", err);
+    });
 
     nextStep(1,2);
 }
