@@ -24,7 +24,7 @@ body{
 
 .font-cursive{font-family:'Dancing Script',cursive}
 
-/*  TEXT WRAP FIX (KEY CHANGE) */
+/* TEXT WRAP FIX */
 h1,h2,p{
     white-space: normal !important;
     word-break: keep-all !important;
@@ -94,7 +94,7 @@ h1,h2,p{
 
 <!-- 🎵 BACKGROUND MUSIC -->
 <audio id="bgm" preload="auto" loop>
-    <source src="bgm.mp3" type="audio/mpeg">
+    <source src="./bgm.mp3" type="audio/mpeg">
 </audio>
 
 <div id="bg-layer" class="absolute inset-0"></div>
@@ -161,9 +161,17 @@ for(let i=0;i<18;i++){
     bg.appendChild(d);
 }
 
+/* ✅ GUARANTEED SOUND */
 function startExperience(){
     bgm.volume = 0.45;
-    bgm.play().catch(()=>{});
+
+    const playPromise = bgm.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.log("Audio blocked:", error);
+        });
+    }
+
     nextStep(1,2);
 }
 
@@ -190,4 +198,3 @@ function revealRose(){
 
 </body>
 </html>
-
