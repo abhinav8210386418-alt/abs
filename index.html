@@ -21,12 +21,14 @@ body{
     color:#ffd6e0;
     text-rendering: optimizeLegibility;
 }
+
 .font-cursive{font-family:'Dancing Script',cursive}
 
+/* ✅ TEXT WRAP FIX (KEY CHANGE) */
 h1,h2,p{
-    white-space:normal !important;
-    word-break:normal !important;
-    overflow-wrap:normal !important;
+    white-space: normal !important;
+    word-break: keep-all !important;
+    overflow-wrap: anywhere !important;
 }
 
 .bg-element{position:absolute;pointer-events:none;opacity:0}
@@ -91,7 +93,7 @@ h1,h2,p{
 <body>
 
 <!-- 🎵 BACKGROUND MUSIC -->
-<audio id="bgm" loop>
+<audio id="bgm" preload="auto" loop>
     <source src="bgm.mp3" type="audio/mpeg">
 </audio>
 
@@ -101,7 +103,7 @@ h1,h2,p{
 
 <div id="step-1" class="story-step active-step">
     <h1 class="resp-title font-cursive text-rose-400 mb-5">Hey Pragya… 🌙</h1>
-    <p class="resp-sub mb-8">Can I ask you something ?</p>
+    <p class="resp-sub mb-8">Can I ask you something special?</p>
     <button onclick="startExperience()" class="btn-main px-8 py-3 rounded-full text-lg font-bold">
         Yes ❤️
     </button>
@@ -134,9 +136,9 @@ stroke="#2d6a4f" stroke-width="12" fill="none" stroke-linecap="round"/>
         Happy Rose Day, Pragya 🌹
     </h2>
     <p class="text-lg text-rose-200 leading-relaxed mx-auto">
-        Bole the na acchi to tum ho.  
-        Fir se bol doon?  
-        Yesss, I’m genuinely enjoying your company ❤️
+        Bole the na acchi to tum ho.
+        Fir se bol doon?
+        Yes — I’m genuinely enjoying your company ❤️
     </p>
 </div>
 </div>
@@ -161,7 +163,7 @@ for(let i=0;i<18;i++){
 
 function startExperience(){
     bgm.volume = 0.45;
-    bgm.play();
+    bgm.play().catch(()=>{});
     nextStep(1,2);
 }
 
