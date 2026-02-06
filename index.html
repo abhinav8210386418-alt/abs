@@ -19,6 +19,7 @@ body{
     align-items:center;
     justify-content:center;
     color:#ffd6e0;
+    text-rendering: optimizeLegibility;
 }
 
 .font-cursive{font-family:'Dancing Script',cursive}
@@ -34,73 +35,98 @@ h1,h2,p{
 @keyframes floatUp{
     0%{transform:translateY(110vh) scale(.4);opacity:0}
     30%{opacity:.7}
-    100%{transform:translateY(-10vh) scale(1.2);opacity:0}
+    100%{transform:translateY(-10vh) scale(1.2) rotate(360deg);opacity:0}
 }
 
 .story-step{
     position:absolute;
     width:92%;
     max-width:640px;
+    min-width:300px;
     padding:0 16px;
     text-align:center;
     transition:.8s ease;
 }
-.hidden-step{opacity:0;transform:translateY(30px);pointer-events:none}
+.hidden-step{opacity:0;transform:translateY(30px) scale(.95);pointer-events:none}
 .active-step{opacity:1;transform:none}
 
-.resp-title{font-size:clamp(2rem,5vw,3.2rem)}
-.resp-sub{font-size:clamp(1.1rem,3.5vw,1.4rem);max-width:560px;margin:auto}
+.resp-title{font-size:clamp(2rem,5vw,3.2rem);line-height:1.35}
+.resp-sub{font-size:clamp(1.1rem,3.5vw,1.4rem);line-height:1.6;max-width:560px;margin:0 auto}
 
 .btn-main{
     background:linear-gradient(45deg,#ff1744,#ff4d6d);
     box-shadow:0 0 25px rgba(255,77,109,.6);
     transition:.25s;
 }
-.btn-main:hover{transform:translateY(-3px)}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 0 40px rgba(255,77,109,.9)}
+
+.rose-container{max-width:420px;filter:drop-shadow(0 0 35px rgba(255,77,109,.9))}
+.stem{stroke-dasharray:1000;stroke-dashoffset:1000;transition:2.5s}
+.rose-head path{
+    opacity:0;
+    transform:scale(0);
+    transform-origin:250px 250px;
+    transition:1.5s cubic-bezier(.18,.89,.32,1.28)
+}
+.bloom .stem{stroke-dashoffset:0}
+.bloom .rose-head path{opacity:1;transform:scale(1)}
 
 .message-card{
     background:rgba(20,0,10,.85);
+    border:1px solid rgba(255,77,109,.4);
     border-radius:20px;
     padding:26px;
     margin-top:24px;
+    box-shadow:0 0 30px rgba(255,77,109,.4);
     opacity:0;
     transform:translateY(20px);
     transition:1s;
+    max-width:560px;
 }
 .message-card.show-message{opacity:1;transform:none}
+
+/* 🔊 Floating Music Button */
+#musicBtn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:9999;
+    background:rgba(0,0,0,0.65);
+    color:#ffd6e0;
+    border:1px solid rgba(255,77,109,.6);
+    padding:10px 16px;
+    border-radius:999px;
+    font-size:14px;
+    backdrop-filter:blur(6px);
+}
 </style>
 </head>
 
 <body>
 
 <!-- 🎵 Background Music -->
-<audio id="bgm" loop>
+<audio id="bgm" preload="auto" loop>
     <source src="bgm.mp3" type="audio/mpeg">
 </audio>
 
+<!-- 🔊 Floating Play Button -->
+<button id="musicBtn" onclick="playMusic()">🔊 Play music</button>
+
 <div id="bg-layer" class="absolute inset-0"></div>
 
-<main class="relative z-10 flex flex-col items-center justify-center">
+<main class="relative z-20 flex flex-col items-center justify-center">
 
 <!-- STEP 1 -->
 <div id="step-1" class="story-step active-step">
-    <h1 class="resp-title font-cursive text-rose-400 mb-4">
+    <h1 class="resp-title font-cursive text-rose-400 mb-5">
         Hey Pragya… 🌙
     </h1>
-    <p class="resp-sub mb-6">
+    <p class="resp-sub mb-8">
         Can I ask you something special?
     </p>
-
-    <button onclick="startExperience()" class="btn-main px-8 py-3 rounded-full text-lg font-bold">
+    <button onclick="nextStep(1,2)" class="btn-main px-8 py-3 rounded-full text-lg font-bold">
         Yes ❤️
     </button>
-
-    <!-- 🔊 PLAY MUSIC BUTTON (GUARANTEED SOUND) -->
-    <div class="mt-4">
-        <button onclick="playMusic()" class="underline text-sm opacity-80">
-            🔊 Tap to play music
-        </button>
-    </div>
 </div>
 
 <!-- STEP 2 -->
@@ -108,26 +134,35 @@ h1,h2,p{
     <h1 class="resp-title font-cursive text-rose-400 mb-4">
         Will you accept this rose made especially for you? 🌹
     </h1>
-    <p class="resp-sub mb-6">
-        Accept kar le yaar… Bohot mehnat laga hai 😌
+    <p class="resp-sub mb-8">
+        Accept kar le yaar… Bohot mehnat lga h 😌
     </p>
-    <button onclick="revealRose()" class="btn-main px-8 py-3 rounded-full text-lg font-bold">
+    <button onclick="revealRose()" class="btn-main px-10 py-4 rounded-full text-xl font-bold">
         I accept 💖
     </button>
 </div>
 
-<!-- FINAL -->
-<div id="rose-view" class="story-step hidden-step">
-    <div id="final-message" class="message-card show-message">
-        <h2 class="text-3xl font-cursive text-rose-300 mb-3">
-            Happy Rose Day, Pragya 🌹
-        </h2>
-        <p class="text-lg">
-            Bole the na acchi to tum ho.<br>
-            Fir se bol doon?<br>
-            Yesss, I’m genuinely enjoying your company ❤️
-        </p>
-    </div>
+<!-- ROSE -->
+<div id="rose-view" class="story-step hidden-step flex flex-col items-center">
+<svg id="rose-svg" class="rose-container" viewBox="0 0 500 600">
+<path class="stem" d="M250,580 Q230,450 250,250"
+stroke="#2d6a4f" stroke-width="12" fill="none" stroke-linecap="round"/>
+<g class="rose-head">
+<path d="M250,250 C200,250 180,150 250,120 C320,150 300,250 250,250" fill="#a4133c"/>
+<path d="M250,250 C180,240 160,180 250,160 C340,180 320,240 250,250" fill="#ff4d6d"/>
+</g>
+</svg>
+
+<div id="final-message" class="message-card text-center">
+    <h2 class="text-3xl font-cursive text-rose-300 mb-3">
+        Happy Rose Day, Pragya 🌹
+    </h2>
+    <p class="text-lg text-rose-200 leading-relaxed mx-auto">
+        Bole the na acchi to tum ho.  
+        Fir se bol doon?  
+        Yesss, I’m genuinely enjoying your company ❤️
+    </p>
+</div>
 </div>
 
 </main>
@@ -143,21 +178,19 @@ for(let i=0;i<18;i++){
     d.className='bg-element float-heart';
     d.innerHTML=icons[Math.floor(Math.random()*icons.length)];
     d.style.left=Math.random()*100+'%';
-    d.style.fontSize=12+Math.random()*20+'px';
+    d.style.fontSize=10+Math.random()*20+'px';
     d.style.animationDuration=8+Math.random()*6+'s';
     bg.appendChild(d);
 }
 
+/* play music */
 function playMusic(){
     bgm.volume = 0.6;
     bgm.play();
+    document.getElementById("musicBtn").innerText = "🎶 Music playing";
 }
 
-function startExperience(){
-    playMusic();
-    nextStep(1,2);
-}
-
+/* steps */
 function nextStep(c,n){
     document.getElementById('step-'+c).classList.replace('active-step','hidden-step');
     const next=document.getElementById('step-'+n);
@@ -168,8 +201,14 @@ function nextStep(c,n){
 function revealRose(){
     document.getElementById('step-2').style.display='none';
     const r=document.getElementById('rose-view');
-    r.style.display='block';
-    setTimeout(()=>r.classList.replace('hidden-step','active-step'),50);
+    r.style.display='flex';
+    setTimeout(()=>{
+        r.classList.replace('hidden-step','active-step');
+        document.getElementById('rose-svg').classList.add('bloom');
+        setTimeout(()=>{
+            document.getElementById('final-message').classList.add('show-message');
+        },3000);
+    },200);
 }
 </script>
 
