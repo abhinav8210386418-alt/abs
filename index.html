@@ -26,7 +26,7 @@ body{
         radial-gradient(circle at 50% 15%, #2b0000 0%, #000 60%);
 }
 
-/* 🌕 Moon */
+
 .moon{
     position:absolute;
     top:8%;
@@ -47,7 +47,7 @@ body{
     to{transform:scale(1.04)}
 }
 
-/* 🌌 Floating Screenshots (Premium Motion) */
+
 .floating{
     position:absolute;
     width:170px;
@@ -74,7 +74,7 @@ body{
     }
 }
 
-/* ⭐ Floating Star Emojis */
+
 .star{
     position:absolute;
     font-size:18px;
@@ -90,7 +90,7 @@ body{
     100%{transform:translateY(-120vh);opacity:0}
 }
 
-/* Pages */
+
 .page{
     position:absolute;
     width:90%;
@@ -106,7 +106,7 @@ body{
     display:flex;
 }
 
-/* Premium Gold Heading */
+
 h1{
     font-family:'Cinzel',serif;
     font-size:clamp(2rem,4vw,3rem);
@@ -117,13 +117,13 @@ h1{
     margin:20px;
 }
 
-/* Subtitle */
+
 p{
     color:#cfae5c;
     font-size:1.1rem;
 }
 
-/* Buttons */
+
 button{
     padding:14px 35px;
     margin:12px;
@@ -142,7 +142,7 @@ button:hover{
     box-shadow:0 0 40px rgba(255,0,0,0.7);
 }
 
-/* Final Image */
+
 .main-img{
     width:300px;
     border-radius:20px;
@@ -150,7 +150,7 @@ button:hover{
     box-shadow:0 0 40px rgba(255,215,0,0.4);
 }
 
-/* Quote */
+
 .quote{
     font-family:'Cinzel',serif;
     font-size:28px;
@@ -166,7 +166,7 @@ button:hover{
 
 <div class="moon"></div>
 
-<!-- Floating Screenshots -->
+
 <img src="ss1.jpeg" class="floating" style="left:5%; animation-delay:0s;">
 <img src="ss2.jpeg" class="floating" style="left:20%; animation-delay:5s;">
 <img src="ss3.jpeg" class="floating" style="left:35%; animation-delay:10s;">
@@ -175,7 +175,7 @@ button:hover{
 <img src="ss6.jpeg" class="floating" style="left:80%; animation-delay:8s;">
 <img src="ss7.jpeg" class="floating" style="left:10%; animation-delay:13s;">
 
-<!-- Pages -->
+
 <div class="page active" id="page1">
     <h1>Sakshi..!!🐵 kya lagta h.. kya hoga iss me  ?? </h1>
     <p>kahi to padhai kaam aaye ...dekhna chahegi ?? </p>
@@ -211,7 +211,7 @@ function goTo(pageNumber){
     document.getElementById('page'+pageNumber).classList.add('active');
 }
 
-/* Generate floating stars */
+
 for(let i=0;i<25;i++){
     const s=document.createElement("div");
     s.className="star";
@@ -225,6 +225,7 @@ for(let i=0;i<25;i++){
 
 </body>
 </html>
+
 
 
 
