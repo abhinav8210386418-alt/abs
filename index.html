@@ -26,6 +26,14 @@ body{
         radial-gradient(circle at 50% 15%, #2b0000 0%, #000 60%);
 }
 
+/* FIX FOR EMOJIS */
+.emoji{
+font-family:"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif;
+-webkit-text-fill-color:initial;
+background:none;
+}
+
+/* moon */
 
 .moon{
     position:absolute;
@@ -47,6 +55,7 @@ body{
     to{transform:scale(1.04)}
 }
 
+/* floating screenshots */
 
 .floating{
     position:absolute;
@@ -74,6 +83,7 @@ body{
     }
 }
 
+/* floating stars */
 
 .star{
     position:absolute;
@@ -90,6 +100,7 @@ body{
     100%{transform:translateY(-120vh);opacity:0}
 }
 
+/* pages */
 
 .page{
     position:absolute;
@@ -106,6 +117,7 @@ body{
     display:flex;
 }
 
+/* headings */
 
 h1{
     font-family:'Cinzel',serif;
@@ -117,12 +129,12 @@ h1{
     margin:20px;
 }
 
-
 p{
     color:#cfae5c;
     font-size:1.1rem;
 }
 
+/* buttons */
 
 button{
     padding:14px 35px;
@@ -142,6 +154,7 @@ button:hover{
     box-shadow:0 0 40px rgba(255,0,0,0.7);
 }
 
+/* image */
 
 .main-img{
     width:300px;
@@ -149,7 +162,6 @@ button:hover{
     margin-top:20px;
     box-shadow:0 0 40px rgba(255,215,0,0.4);
 }
-
 
 .quote{
     font-family:'Cinzel',serif;
@@ -166,66 +178,59 @@ button:hover{
 
 <div class="moon"></div>
 
-
-<img src="ss1.jpeg" class="floating" style="left:5%; animation-delay:0s;">
-<img src="ss2.jpeg" class="floating" style="left:20%; animation-delay:5s;">
-<img src="ss3.jpeg" class="floating" style="left:35%; animation-delay:10s;">
-<img src="ss4.jpeg" class="floating" style="left:50%; animation-delay:15s;">
-<img src="ss5.jpeg" class="floating" style="left:65%; animation-delay:3s;">
-<img src="ss6.jpeg" class="floating" style="left:80%; animation-delay:8s;">
-<img src="ss7.jpeg" class="floating" style="left:10%; animation-delay:13s;">
-
+<img src="ss1.jpeg.jpeg" class="floating" style="left:5%; animation-delay:0s;">
+<img src="ss2.jpeg.jpeg" class="floating" style="left:20%; animation-delay:5s;">
+<img src="ss3.jpeg.jpeg" class="floating" style="left:35%; animation-delay:10s;">
+<img src="ss4.jpeg.jpeg" class="floating" style="left:50%; animation-delay:15s;">
+<img src="ss5.jpeg.jpeg" class="floating" style="left:65%; animation-delay:3s;">
+<img src="ss6.jpeg.jpeg" class="floating" style="left:80%; animation-delay:8s;">
+<img src="ss7.jpeg.jpeg" class="floating" style="left:10%; animation-delay:13s;">
 
 <div class="page active" id="page1">
-    <h1>Sakshi..!!🐵 kya lagta h.. kya hoga iss me  ?? </h1>
-    <p>kahi to padhai kaam aaye ...dekhna chahegi ?? </p>
-    <button onclick="goTo(3)"> Dikhao Dikhao ❤️</button>
-    <button onclick="goTo(2)">Ni Dekhna 😒</button>
+<h1>Sakshi..!!<span class="emoji">🐵</span> kya lagta h.. kya hoga iss me ??</h1>
+<p>kahi to padhai kaam aaye ...dekhna chahegi ??</p>
+<button onclick="goTo(3)">Dikhao Dikhao <span class="emoji">❤️</span></button>
+<button onclick="goTo(2)">Ni Dekhna <span class="emoji">😒</span></button>
 </div>
 
 <div class="page" id="page2">
-    <h1> Aree dekh le yaar mehnat laga h bohot 😁 </h1>
-    <button onclick="goTo(3)">Chal Dekh lete h ❤️</button>
+<h1>Aree dekh le yaar mehnat laga h bohot <span class="emoji">😁</span></h1>
+<button onclick="goTo(3)">Chal Dekh lete h <span class="emoji">❤️</span></button>
 </div>
 
 <div class="page" id="page3">
-    <h1>Accha Sakshi 💫💫... u know 7 was my lucky number but shyd ab 9 hai 🤩🤩 </h1>
-    <button onclick="goTo(4)"> Aisa kyu puch rhe ?</button>
+<h1>Accha Sakshi <span class="emoji">💫💫</span>... u know 7 was my lucky number but shyd ab 9 hai <span class="emoji">🤩🤩</span></h1>
+<button onclick="goTo(4)">Aisa kyu puch rhe ?</button>
 </div>
 
 <div class="page" id="page4">
-    <h1>Bcz pta ni kaise but I met someone very special 💫 Bhutki 💫 on 9th of this month ❤️</h1>
-    <button onclick="goTo(5)">Continue ✨</button>
+<h1>Bcz pta ni kaise but I met someone very special <span class="emoji">💫</span> Bhutki <span class="emoji">💫</span> on 9th of this month <span class="emoji">❤️</span></h1>
+<button onclick="goTo(5)">Continue <span class="emoji">✨</span></button>
 </div>
 
 <div class="page" id="page5">
-    <h1>It all started here ❤️</h1>
-    <img src="mainchat.jpeg" class="main-img">
-    <div class="quote"># 9th Dated Forever ❤️</div>
+<h1>It all started here <span class="emoji">❤️</span></h1>
+<img src="mainchat.jpeg.jpeg" class="main-img">
+<div class="quote"># 9th Dated Forever <span class="emoji">❤️</span></div>
 </div>
 
 <script>
 function goTo(pageNumber){
-    let pages=document.querySelectorAll('.page');
-    pages.forEach(page=>page.classList.remove('active'));
-    document.getElementById('page'+pageNumber).classList.add('active');
+let pages=document.querySelectorAll('.page');
+pages.forEach(page=>page.classList.remove('active'));
+document.getElementById('page'+pageNumber).classList.add('active');
 }
 
-
 for(let i=0;i<25;i++){
-    const s=document.createElement("div");
-    s.className="star";
-    s.innerHTML = Math.random() > 0.5 ? "⭐" : "✨";
-    s.style.left = Math.random()*100 + "%";
-    s.style.animationDuration = 15 + Math.random()*10 + "s";
-    s.style.animationDelay = Math.random()*10 + "s";
-    document.body.appendChild(s);
+const s=document.createElement("div");
+s.className="star";
+s.innerHTML = Math.random() > 0.5 ? "⭐" : "✨";
+s.style.left = Math.random()*100 + "%";
+s.style.animationDuration = 15 + Math.random()*10 + "s";
+s.style.animationDelay = Math.random()*10 + "s";
+document.body.appendChild(s);
 }
 </script>
 
 </body>
 </html>
-
-
-
-
